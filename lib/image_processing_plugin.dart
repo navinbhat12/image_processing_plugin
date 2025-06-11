@@ -54,15 +54,14 @@ class ImageProcessingPlugin {
     final avgBrightness = totalBrightness ~/ pixels;
     final darkRatio = veryDarkPixels / pixels;
 
-    // --- ADDED PRINT STATEMENTS ---
-    print('Image Acceptability Check:');
-    print('  Average Brightness: $avgBrightness');
-    print(
-      '  Dark Pixel Ratio (brightness < 25): ${darkRatio.toStringAsFixed(2)}',
-    );
-    // You might also want to print the current thresholds for clarity:
-    print('  Current Thresholds: avgBrightness < 35 && darkRatio > 0.5');
-    // ------------------------------
+    // --- REMOVED PRINT STATEMENTS ---
+    // print('Image Acceptability Check:');
+    // print('  Average Brightness: $avgBrightness');
+    // print(
+    //   '  Dark Pixel Ratio (brightness < 25): ${darkRatio.toStringAsFixed(2)}',
+    // );
+    // print('  Current Thresholds: avgBrightness < 35 && darkRatio > 0.5');
+    // --------------------------------
 
     final tooDark = avgBrightness < 35 && darkRatio > 0.5;
 
@@ -86,18 +85,20 @@ class ImageProcessingPlugin {
         return File(enhancedImagePath);
       } else {
         // If native enhancement fails or returns null, return the original image
-        print("Native enhancement returned null, returning original image.");
+        /*print("Native enhancement returned null, returning original image.");*/
         return originalImage;
       }
-    } on PlatformException catch (e) {
-      print(
+    } on PlatformException catch (_) {
+      // CHANGED catch (e) to catch (_)
+      /*print(
         "Failed to invoke native enhanceImage: '${e.message}'. Returning original image.",
-      );
+      );*/
       return originalImage;
-    } catch (e) {
-      print(
+    } catch (_) {
+      // CHANGED catch (e) to catch (_)
+      /* print(
         "An unexpected error occurred during enhanceImage: $e. Returning original image.",
-      );
+      );*/
       return originalImage;
     }
   }
